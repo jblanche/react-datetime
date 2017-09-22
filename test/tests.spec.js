@@ -574,7 +574,7 @@ describe('Datetime', () => {
 			let i = 0;
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
 				component = utils.createDatetime({ timeFormat: 'HH:mm:ss:SSS', viewMode: 'time',
-					defaultValue: date, timeConstraints: { hours: { max: 6, step: 8 }, minutes: { step: 15 }},
+					defaultValue: date, timeConstraints: { hours: { step: 2 }, minutes: { step: 15 }},
 					onChange: (selected) => {
 						// TODO
 						i++;
@@ -587,10 +587,10 @@ describe('Datetime', () => {
 				});
 
 			utils.increaseHour(component);
-			expect(utils.getHours(component)).toEqual('3');
+			expect(utils.getHours(component)).toEqual('4');
 
 			utils.increaseMinute(component);
-			expect(utils.getMinutes(component)).toEqual('17');
+			expect(utils.getMinutes(component)).toEqual('15');
 
 			utils.increaseSecond(component);
 			expect(utils.getSeconds(component)).toEqual('03');
@@ -612,7 +612,7 @@ describe('Datetime', () => {
 				});
 
 			utils.decreaseMinute(component);
-			expect(utils.getMinutes(component)).toEqual('47');
+			expect(utils.getMinutes(component)).toEqual('00');
 		});
 
 		it('strictParsing=true', (done) => {

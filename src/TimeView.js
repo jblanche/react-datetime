@@ -201,6 +201,11 @@ var DateTimePickerTime = onClickOutside( createClass({
 
 	increase: function( type ) {
 		var value = parseInt( this.state[ type ], 10) + this.timeConstraints[ type ].step;
+
+		if ( value % this.timeConstraints[ type ].step !== 0 ) {
+			value = value - value % this.timeConstraints[ type ].step;
+		}			
+
 		if ( value > this.timeConstraints[ type ].max )
 			value = this.timeConstraints[ type ].min + ( value - ( this.timeConstraints[ type ].max + 1 ) );
 		return this.pad( type, value );
@@ -208,6 +213,11 @@ var DateTimePickerTime = onClickOutside( createClass({
 
 	decrease: function( type ) {
 		var value = parseInt( this.state[ type ], 10) - this.timeConstraints[ type ].step;
+
+		if (value % this.timeConstraints[ type ].step !== 0 ) {
+			value = value +  this.timeConstraints[ type ].step - (value +  this.timeConstraints[ type ].step) % this.timeConstraints[ type ].step;
+		}		
+
 		if ( value < this.timeConstraints[ type ].min )
 			value = this.timeConstraints[ type ].max + 1 - ( this.timeConstraints[ type ].min - value );
 		return this.pad( type, value );

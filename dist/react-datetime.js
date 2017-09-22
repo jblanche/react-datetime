@@ -1,5 +1,5 @@
 /*
-react-datetime v2.10.0
+react-datetime v2.10.1
 https://github.com/YouCanBookMe/react-datetime
 MIT: https://github.com/YouCanBookMe/react-datetime/raw/master/LICENSE
 */
@@ -3606,6 +3606,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		increase: function( type ) {
 			var value = parseInt( this.state[ type ], 10) + this.timeConstraints[ type ].step;
+			if (value % this.timeConstraints[ type ].step !== 0 ) {
+				value = value - value % this.timeConstraints[ type ].step
+			}			
 			if ( value > this.timeConstraints[ type ].max )
 				value = this.timeConstraints[ type ].min + ( value - ( this.timeConstraints[ type ].max + 1 ) );
 			return this.pad( type, value );
@@ -3613,6 +3616,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		decrease: function( type ) {
 			var value = parseInt( this.state[ type ], 10) - this.timeConstraints[ type ].step;
+			if (value % this.timeConstraints[ type ].step !== 0 ) {
+				value = value +  this.timeConstraints[ type ].step - value % this.timeConstraints[ type ].step
+			}					
 			if ( value < this.timeConstraints[ type ].min )
 				value = this.timeConstraints[ type ].max + 1 - ( this.timeConstraints[ type ].min - value );
 			return this.pad( type, value );
